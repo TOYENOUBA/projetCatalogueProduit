@@ -1,0 +1,55 @@
+﻿@model projetCatalogueProduit.Models.CAT_CATEGORIE
+@{
+    ViewBag.Title = "Ajouter Categorie du véhicule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ajouter Categorie du véhicule</h2>
+
+<div>
+
+    <form id="formCategorie" name="formCategorie" action="" method="post">
+        @if (Model != null)
+        {
+            <input type="hidden" name="CODE_CATEGORIE" id="CODE_CATEGORIE" value="@Model.CODE_CATEGORIE" />
+        }
+        <div class="form-group">
+            <label>CATEGORIE</label>
+            <input type="text" id="LIBELLE_CATEGORIE" name="LIBELLE_CATEGORIE" class="form-control" value="@(Model!=null? Model.LIBELLE_CATEGORIE:"")" required />
+        </div>
+        <div>
+            @if (Model == null)
+            {
+                <input type="submit" id="enregistrer" name="enregistrer" value="Enregistrer" class="btn btn-success" />
+            }
+            else
+            {
+                <input type="submit" id="modifier" name="modifier" value="Enregistrer Modification" class="btn btn-success" />
+                <a href="~/Categorie/AjoutCategorie" class="btn btn-default">Annuler</a>
+            }
+        </div>
+    </form>
+
+    <hr />
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <th>CATEGORIE</th>
+                <th>DATE SAISIE</th>
+                <th>Modifier</th>
+                <th> Supprimer</th>
+            </tr>
+            @foreach (var data in ViewBag.listeCategorie)
+            {
+                <tr>
+                    <td>@data.LIBELLE_CATEGORIE</td>
+                    <td>@data.DATE_SAISIE</td>
+                    <td><a href="~/Categorie/ModifierCategorie/@data.CODE_CATEGORIE" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span> Modifier</a></td>
+                    <td><a href="~/Categorie/SupprimerCategorie/@data.CODE_CATEGORIE" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span> Supprimer</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</div>
